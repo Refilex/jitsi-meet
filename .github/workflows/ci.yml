@@ -1,7 +1,10 @@
 name: Simple CI
 
-on: [pull_request]
-
+on:
+  pull_request:
+    branches:
+        -develop
+    types: [closed]
 jobs:
   lint:
     name: Lint
@@ -41,36 +44,23 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: make
-  macos-ci:
-    name: Build Frontend (macOS)
-    runs-on: macOS-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-        cache: 'npm'
-    - run: npm install
-    - run: make
-  android-build:
-    name: Build mobile bundle (Android)
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-        cache: 'npm'
-    - run: npm install
-    - run: npx react-native bundle --entry-file react/index.native.js --platform android --bundle-output /tmp/android.bundle --reset-cache
-  ios-build:
-    name: Build mobile bundle (iOS)
-    runs-on: macOS-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-        cache: 'npm'
-    - run: npm install
-    - run: npx react-native bundle --entry-file react/index.native.js --platform ios --bundle-output /tmp/ios.bundle --reset-cache
+
+  deploy:
+        if: ${{ github.event.pull_request.merged }}
+        runs-on: ubuntu-latest
+        needs: linux-build
+        steps:
+          - name: Deploy iSpeaker Jitsi Meeting
+            uses: appleboy/ssh-action@v0.1.4
+            with:
+              host: ${{ secrets.SSH_HOST }}
+              key: ${{ secrets.SSH_KEY }}
+              username: ${{ secrets.SSH_USER }}
+
+              script: |
+                cd /var/www/ispeaker/staging/jitsi-meet
+                git reset --hard
+                git switch develop
+                git pull origin develop
+                npm install
+                npm run start
