@@ -191,7 +191,8 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
             <div
                 className = { `welcome ${contentClassName} ${footerClassName}` }
                 id = 'welcome_page'>
-                <div className = 'header'>
+                    <img src="images/logo.png" alt="ispeaker-logo" style={{width: '75%', margin: 'auto'}} />
+                {/* <div className = 'header'>
                     <div className = 'header-image' />
                     <div className = 'header-container'>
                         <div className = 'header-watermark-container'>
@@ -279,7 +280,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                             ref = { this._setAdditionalContentRef } />
                         : null }
                 </div>
-                { DISPLAY_WELCOME_FOOTER && this._renderFooter()}
+                { DISPLAY_WELCOME_FOOTER && this._renderFooter()} */}
             </div>
 
         );
