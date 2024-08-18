@@ -66,7 +66,7 @@ const DEFAULT_STATE = {
      * @public
      * @type {boolean}
      */
-    defaultBranding: true,
+    defaultBranding: false,
 
     /**
      * Url for a custom page for DID numbers list.
@@ -99,7 +99,7 @@ const DEFAULT_STATE = {
      * @public
      * @type {string}
      */
-    logoClickUrl: '',
+    logoClickUrl: 'https://refilex.com/',
 
     /**
      * The custom logo (JitisWatermark).

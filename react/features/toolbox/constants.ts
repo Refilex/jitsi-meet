@@ -6,11 +6,11 @@ import { ToolbarButton } from './types';
 export const THRESHOLDS = [
     {
         width: 565,
-        order: [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'reactions', 'participants-pane', 'tileview' ]
+        order: [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'reactions', 'participants', 'fullscreen' ]
     },
     {
         width: 520,
-        order: [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'participants-pane', 'tileview' ]
+        order: [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'participants', 'fullscreen' ]
     },
     {
         width: 470,
